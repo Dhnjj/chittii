@@ -1,0 +1,62 @@
+#include<stdio.h>
+int main()
+{
+ int pno[10],at[10],bt[10],wt[10],tat[10],tp,twt=0,ttat=0,delay=0;
+ float awt,atat;
+ printf("First Come First Serve Scheduling - without Arrival Times\n\n");
+ printf("\nEnter the No of processes:");
+ scanf("%d",&tp);
+ for(int i=0;i<tp;i++)
+ {
+ printf("Enter process no");
+ scanf("%d",&pno[i]);
+ 
+ printf("Enter the burst time for process %d:",pno[i]);
+ scanf("%d",&bt[i]);
+ wt[i]=0;
+ }
+ wt[0]=0;
+ tat[0]=wt[0]+bt[0];
+ for(int i=0;i<tp;i++)
+ {
+ for(int j=0;j<i;j++)
+ {
+ wt[i]=wt[i]+bt[j]; 
+ 
+ }
+ twt = twt+wt[i];
+ tat[i]=wt[i]+bt[i];
+ ttat=ttat+tat[i];
+ }
+ awt=(float)twt/tp;
+ atat=(float)ttat/tp;
+ printf("\nPNO\tBT\tWT\tTAT\n");
+ for(int i=0;i<tp;i++)
+ {
+ printf("%d\t%d\t%d\t%d\n",pno[i],bt[i],wt[i],tat[i]);
+ }
+ printf("\nAverage Waiting Time:%f",awt);
+ printf("\nAverage Turnaround time:%f",atat);
+ return 0;
+}
+OUTPUT: 
+First Come First Serve Scheduling - without Arrival Times 
+Enter the No of processes:5 
+Enter process no1 
+Enter the burst time for process 1:4 
+Enter process no2 
+Enter the burst time for process 2:5 
+Enter process no3 
+Enter the burst time for process 3:2 
+Enter process no4 
+Enter the burst time for process 4:7 
+Enter process no5 
+Enter the burst time for process 5:4 
+PNO BT WT TAT 
+1 4 0 4 
+2 5 4 9 
+3 2 9 11 
+4 7 11 18 
+5 4 18 22 
+Average Waiting Time:8.400000 
+Average Turnaround time:12.800000

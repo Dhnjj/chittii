@@ -1,0 +1,92 @@
+#include<stdio.h>
+int main()
+{
+int pno[5],bt[5],wt[5],tat[5],ts,np;
+float awt,atat;
+int flag=0,twt=0,ttat=0,i,j,k,temp,t[5];
+printf("Round robin Scheduling\n\n");
+printf("Enter the time slice:");
+scanf("%d",&ts);
+printf("Enter the no of processes");
+scanf("%d",&np);
+for(i=0;i<np;i++)
+{
+ printf("Enter the processor no,service time for process %d:",i);
+scanf("%d%d",&pno[i],&bt[i]);
+}
+ 
+for(i=0;i<np;i++)
+{
+wt[i]=0;
+t[i]=bt[i];
+}
+ while(1)
+ {
+ 
+	 	 for(i=0;i<np;i++)
+	 	 {
+	 	 	 if(bt[i]!=0)
+	 	 	 {
+	 	 	 	 if(bt[i]<ts)
+{
+temp=bt[i];
+bt[i]=0;
+ flag=flag+1;
+	 	 	 	 }
+else
+{
+temp=ts;
+bt[i]=bt[i]-ts;
+ if(bt[i]==0)
+ {
+ flag = flag+1;
+ }
+	 	 	 	 }
+	 	 	 	 for(k=0;k<np;k++)
+{
+	 	 	 	 	 if(k!=i)
+{
+	 	 	 	 	 	 if(bt[k]!=0)
+{
+wt[k]=wt[k]+temp;
+ }
+	 	 	 	 	 }
+	 	 	 	 }
+	 	 }
+ 
+	 	 }
+ if(flag==np)
+ {
+ break;
+ }
+ }
+for(i=0;i<np;i++)
+{
+ tat[i]=t[i]+wt[i];
+twt=twt+wt[i];
+ttat=ttat+tat[i];
+}
+awt=(float)twt/np;
+atat=(float)ttat/np;
+printf("PNO BT WT TAT\n");
+for(i=0;i<np;i++)
+{
+printf("%d\t%d\t%d\t%d\n",pno[i],t[i],wt[i],tat[i]);
+}
+printf("The avg. wt time:%f\n",awt);
+printf("Tha avg. tat :%f",atat);
+return 0;
+}
+Output: 
+Round robin Scheduling 
+Enter the time slice:3 
+Enter the no of processes3 
+Enter the processor no,service time for process 0:1 6 
+Enter the processor no,service time for process 1:2 7 
+Enter the processor no,service time for process 2:3 9 
+PNO BT WT TAT 
+1 6 6 12 
+2 7 12 19 
+3 9 13 22 
+The avg. wt time:10.333333 
+Tha avg. tat :17.666666

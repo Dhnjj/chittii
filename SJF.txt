@@ -1,0 +1,70 @@
+#include<stdio.h>
+int main()
+{
+ int pno[10],bt[10],wt[10],tat[10],tp,twt=0,ttat=0,delay=0,ct[10];
+ int i,j,temp;
+ float awt,atat;
+ printf("Shortest Job First Scheduling\n\n");
+ printf("\nEnter the No of processes:");
+ scanf("%d",&tp);
+ for(i=0;i<tp;i++)
+ {
+ printf("Enter process no");
+ scanf("%d",&pno[i]);
+ printf("Enter the burst time for process %d:",pno[i]);
+ scanf("%d",&bt[i]);
+ wt[i]=0;
+ }
+ for(i=0;i<tp;i++)
+ {
+ for(j=i;j<tp;j++)
+ {
+ if(bt[i]>bt[j])
+ {
+ temp=pno[i];
+ pno[i]=pno[j];
+ pno[j]=temp;
+ temp=bt[i];
+ bt[i]=bt[j];
+ bt[j]=temp;
+ }
+ }
+ }
+ wt[0]=0;
+ tat[0]=wt[0]+bt[0];
+ for(i=1;i<tp;i++)
+ {
+ for(j=0;j<i;j++)
+ {
+ wt[i]=wt[i]+bt[j];
+ }
+ twt = twt+wt[i];
+ tat[i]=wt[i]+bt[i];
+ ttat=ttat+tat[i];
+ }
+ awt=(float)twt/tp;
+ atat=(float)ttat/tp;
+ printf("\nPNO\tBT\tWT\tTAT\n");
+ for(int i=0;i<tp;i++)
+ {
+ printf("%d\t%d\t%d\t%d\n",pno[i],bt[i],wt[i],tat[i]);
+ }
+ printf("\nAverage Waiting Time:%f",awt);
+ printf("\nAverage Turnaround time:%f",atat);
+ return 0;
+}
+Output:
+Shortest Job First Scheduling
+Enter the No of processes:3
+Enter process no1
+Enter the burst time for process 1:5
+Enter process no2
+Enter the burst time for process 2:3
+Enter process no3
+Enter the burst time for process 3:7
+PNO BT WT TAT
+2 3 0 3
+1 5 3 8
+3 7 8 15
+Average Waiting Time:3.666667
+Average Turnaround time:7.666667
